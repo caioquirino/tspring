@@ -1,0 +1,29 @@
+{
+  "name": "@tspring/tspring-parent",
+  "version": "1.0.0",
+  "description": "Typescript Spring framework experiment",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run -ws build",
+    "test": "npm run -ws test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caioquirino/tspring.git"
+  },
+  "keywords": [
+    "tspring"
+  ],
+  "author": "Caio Quirino <caioquirino@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/caioquirino/tspring/issues"
+  },
+  "homepage": "https://github.com/caioquirino/tspring#readme",
+  "workspaces": [
+    "packages/annotation-utils",
+    "packages/transformer",
+    "packages/context",
+    "packages/web"
+  ]
+}

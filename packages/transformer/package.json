@@ -1,0 +1,51 @@
+{
+  "name": "@tspring/transformer",
+  "author": "Caio Quirino <caioquirino@gmail.com>",
+  "license": "Apache-2.0",
+  "version": "1.0.0",
+  "description": "Typescript transformer for Compile-time injections",
+  "klap": {
+    "usets": true
+  },
+  "scripts": {
+    "test": "jest --no-cache --coverage=true",
+    "build": "klap build",
+    "start": "klap start",
+    "watch": "klap watch"
+  },
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "source": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ]
+  },
+  "dependencies": {
+    "typescript": "^4.5.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "jest": "^27.4.3",
+    "klap": "^7.0.7",
+    "ts-jest": "^27.0.7",
+    "ts-transformer-testing-library": "^1.0.0-alpha.7",
+    "tslib": "^2.3.1"
+  }
+}
