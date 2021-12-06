@@ -3,7 +3,7 @@
 type ClassAnnotationBase = (ctr: Function) => void
 
 type NoArgsClassAnnotationType = ClassAnnotationBase
-type NoArgsClassAnnotationFactoryType = (value?: string) => ClassAnnotationBase
+type NoArgsClassAnnotationFactoryType = () => ClassAnnotationBase
 export type NoArgsClassAnnotation = NoArgsClassAnnotationFactoryType & NoArgsClassAnnotationType
 
 type OptionalValueClassAnnotationFactoryType<T> = (value?: T) => ClassAnnotationBase
@@ -30,7 +30,7 @@ export const createNoArgsClassAnnotation = (): NoArgsClassAnnotation => {
 type MethodAnnotationBase = (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => void
 
 type NoArgsMethodAnnotationType = MethodAnnotationBase
-type NoArgsMethodAnnotationFactoryType = (value?: string) => MethodAnnotationBase
+type NoArgsMethodAnnotationFactoryType = () => MethodAnnotationBase
 export type NoArgsMethodAnnotation = NoArgsMethodAnnotationFactoryType & NoArgsMethodAnnotationType
 
 type OptionalValueMethodAnnotationFactoryType<T> = (value?: T) => MethodAnnotationBase
@@ -56,7 +56,7 @@ export const createNoArgsMethodAnnotation = (): NoArgsMethodAnnotation => {
 type PropertyAnnotationBase = (target: Object, key: string | symbol) => void
 
 type NoArgsPropertyAnnotationType = PropertyAnnotationBase
-type NoArgsPropertyAnnotationFactoryType = (value?: string) => PropertyAnnotationBase
+type NoArgsPropertyAnnotationFactoryType = () => PropertyAnnotationBase
 export type NoArgsPropertyAnnotation = NoArgsPropertyAnnotationFactoryType & NoArgsPropertyAnnotationType
 
 type OptionalValuePropertyAnnotationFactoryType<T> = (value?: T) => PropertyAnnotationBase
@@ -83,7 +83,7 @@ export const createNoArgsPropertyAnnotation = (): NoArgsPropertyAnnotation => {
 type MethodParameterAnnotationBase = (target: Object, key: string | symbol, parameterIndex: number) => void
 
 type NoArgsMethodParameterAnnotationType = MethodParameterAnnotationBase
-type NoArgsMethodParameterAnnotationFactoryType = (value?: string) => MethodParameterAnnotationBase
+type NoArgsMethodParameterAnnotationFactoryType = () => MethodParameterAnnotationBase
 export type NoArgsMethodParameterAnnotation = NoArgsMethodParameterAnnotationFactoryType & NoArgsMethodParameterAnnotationType
 
 type OptionalValueMethodParameterAnnotationFactoryType<T> = (value?: T) => MethodParameterAnnotationBase
