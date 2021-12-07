@@ -1,21 +1,26 @@
 import { AnnotationFactory } from "../src"
 
-export type TestTypeAnnotation = AnnotationFactory.TypeAnnotation<string | void>
-export const TestTypeAnnotation: TestTypeAnnotation = AnnotationFactory.createTypeAnnotation<string | void>()
+export type TestTypeAnnotation = AnnotationFactory.TypeAnnotation<[value: string | void]>
+export const TestTypeAnnotation: TestTypeAnnotation = AnnotationFactory.createTypeAnnotation<[value: string | void]>()
 
-export type TestMethodAnnotation = AnnotationFactory.MethodAnnotation<string | void>
-export const TestMethodAnnotation: TestMethodAnnotation = AnnotationFactory.createMethodAnnotation<string | void>()
+export type TestMethodAnnotation = AnnotationFactory.MethodAnnotation<[value: string | void]>
+export const TestMethodAnnotation: TestMethodAnnotation = AnnotationFactory.createMethodAnnotation<[value: string | void]>()
 
-export type TestFieldAnnotation = AnnotationFactory.FieldAnnotation<string | void>
-export const TestFieldAnnotation: TestFieldAnnotation = AnnotationFactory.createFieldAnnotation<string | void>()
+export type TestFieldAnnotation = AnnotationFactory.FieldAnnotation<[value: string | void]>
+export const TestFieldAnnotation: TestFieldAnnotation = AnnotationFactory.createFieldAnnotation<[value: string | void]>()
 
-export type TestParameterAnnotation = AnnotationFactory.ParameterAnnotation<string | void>
-export const TestParameterAnnotation: TestParameterAnnotation = AnnotationFactory.createParameterAnnotation<string | void>()
+export type TestParameterAnnotation = AnnotationFactory.ParameterAnnotation<[value: string | void]>
+export const TestParameterAnnotation: TestParameterAnnotation = AnnotationFactory.createParameterAnnotation<[value: string | void]>()
+
+
+export type TupleTestTypeAnnotation = AnnotationFactory.TypeAnnotation<[name: string, enabled: boolean, index: number]>
+export const TupleTestTypeAnnotation: TupleTestTypeAnnotation = AnnotationFactory.createTypeAnnotation<[name: string, enabled: boolean, index: number]>()
 
 type TestObject = {
   testField: string
 }
 
+@TupleTestTypeAnnotation("name", true, 1)
 @TestTypeAnnotation()
 @TestTypeAnnotation("value")
 class ValidTestClass {

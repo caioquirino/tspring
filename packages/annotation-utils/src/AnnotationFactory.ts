@@ -19,7 +19,7 @@ Capability                              - Example                      - Impleme
 Required typed args with value          -  @Annotation("value")        - Yes         - Using target type
 Optional typed args with parenthesis    -  @Annotation()               - Yes         - Using target type | void (2)
 No-args annotation with parenthesis     -  @Annotation()               - Yes         - Using <void> type
-Custom type annotations                 -  @Annotation(f1=1, f2=false) - No          - To be implemented
+Custom type annotations                 -  @Annotation(f1=1, f2=false) - Yes         - Using TS Tuples
 Optional typed args without parenthesis -  @Annotation                 - No          - Too messy to implement (1)
 No-args annotation without parenthesis  -  @Annotation                 - No          - Too messy to implement (1)
 
@@ -34,56 +34,45 @@ being used as a factory or a decorator
 // Type annotations
 
 type TypeAnnotationBase = <T extends { new(...args: any[]): {} }>(ctr: T) => void
+export type TypeAnnotation<T extends [...any]> = (...values: [...T]) => TypeAnnotationBase
 
-type TypeAnnotationFactoryType<T> = (value: T) => TypeAnnotationBase
-export type TypeAnnotation<T> = TypeAnnotationFactoryType<T>
-
-export const createTypeAnnotation = <T>(): TypeAnnotation<T> => {
-  const valueAnnotation = (value: T) => <T extends { new(...args: any[]): {} }>(ctr: T): void => {
+export const createTypeAnnotation = <T extends [...any]>(): TypeAnnotation<T> => {
+  const valueAnnotation = (..._factoryArgs) => (...decoratorArgs): void => {
   }
   return valueAnnotation as TypeAnnotation<T>
 }
-
 
 // Method annotations
 // Made to annotate the method signature
 
 type MethodAnnotationBase = (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => void
+export type MethodAnnotation<T extends [...any]> = (...values: [...T]) => MethodAnnotationBase
 
-type MethodAnnotationFactoryType<T> = (value: T) => MethodAnnotationBase
-export type MethodAnnotation<T> = MethodAnnotationFactoryType<T>
-
-export const createMethodAnnotation = <T>(): MethodAnnotation<T> => {
-  const valueAnnotation = (value: T) => (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
+export const createMethodAnnotation = <T extends [...any]>(): MethodAnnotation<T> => {
+  const valueAnnotation = (..._v) => (_target: Object, _key: string | symbol, _descriptor: PropertyDescriptor) => {
   }
-  return valueAnnotation as TypeAnnotation<T>
+  return valueAnnotation as MethodAnnotation<T>
 }
-
 
 // Type Field annotations
 // Made for usage in properties inside a class
 type FieldAnnotationBase = (target: Object, key: string | symbol) => void
+export type FieldAnnotation<T extends [...any]> = (...values: [...T]) => FieldAnnotationBase
 
-type FieldAnnotationFactoryType<T> = (value: T) => FieldAnnotationBase
-export type FieldAnnotation<T> = FieldAnnotationFactoryType<T>
-
-export const createFieldAnnotation = <T>(): FieldAnnotation<T> => {
-  const valueAnnotation = (value: T) => (target: Object, key: string | symbol) => {
+export const createFieldAnnotation = <T extends [...any]>(): FieldAnnotation<T> => {
+  const valueAnnotation = (..._v) => (_arget: Object, _key: string | symbol) => {
   }
-  return valueAnnotation as TypeAnnotation<T>
+  return valueAnnotation as FieldAnnotation<T>
 }
-
-
 
 // Method Parameter Annotations
 // Made for usage in parameters of a method
 type ParameterAnnotationBase = (target: Object, key: string | symbol, parameterIndex: number) => void
 
-type ParameterAnnotationFactoryType<T> = (value: T) => ParameterAnnotationBase
-export type ParameterAnnotation<T> = ParameterAnnotationFactoryType<T>
+export type ParameterAnnotation<T extends [...any]> = (...values: [...T]) => ParameterAnnotationBase
 
-export const createParameterAnnotation = <T>(): ParameterAnnotation<T> => {
-  const valueAnnotation = (value: T) => (target: Object, key: string | symbol, parameterIndex: number) => {
+export const createParameterAnnotation = <T extends [...any]>(): ParameterAnnotation<T> => {
+  const valueAnnotation = (..._v) => (_target: Object, _key: string | symbol, _parameterIndex: number) => {
   }
   return valueAnnotation as ParameterAnnotation<T>
 }
