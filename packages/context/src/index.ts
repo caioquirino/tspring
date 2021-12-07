@@ -2,8 +2,8 @@ import {
   AnnotationFactory
 } from "@tspring/annotation-utils"
 
-export type Autowired = AnnotationFactory.NoArgsClassAnnotation
-export const Autowired: Autowired = AnnotationFactory.createNoArgsClassAnnotation()
+export type Autowired = AnnotationFactory.NoArgsTypeAnnotation
+export const Autowired: Autowired = AnnotationFactory.createNoArgsTypeAnnotation()
 
-export type Qualifier = AnnotationFactory.OptionalValuePropertyAnnotation<string>
-export const Qualifier: Qualifier = AnnotationFactory.createValuePropertyAnnotation<string>()
+export type Qualifier = AnnotationFactory.OptionalValueFieldAnnotation<string>
+export const Qualifier: Qualifier = AnnotationFactory.createValueFieldAnnotation<string>()

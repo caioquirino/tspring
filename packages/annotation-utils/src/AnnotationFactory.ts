@@ -1,26 +1,55 @@
-// Class annotations
+/*
+Annotation types:
 
-type ClassAnnotationBase = (ctr: Function) => void
+Capability                                                             - Implemented - Obs.
+-------------------------------------------------------------------------------------------------------------------
+ElementType.ANNOTATION_TYPE can be applied to an annotation type.      - No          - Too complex to implement now
+ElementType.CONSTRUCTOR can be applied to a constructor.               - No          - Unsupported in TS...
+ElementType.FIELD can be applied to a field or property.               - Yes         -
+ElementType.LOCAL_VARIABLE can be applied to a local variable.         - No          - Not applicable for TS
+ElementType.METHOD can be applied to a method-level annotation.        - Yes         -
+ElementType.PACKAGE can be applied to a package declaration.           - No          - Not applicable for TS
+ElementType.PARAMETER can be applied to the parameters of a method.    - Yes         -
+ElementType.TYPE can be applied to any element of a class.             - Yes         -
 
-type NoArgsClassAnnotationType = ClassAnnotationBase
-type NoArgsClassAnnotationFactoryType = () => ClassAnnotationBase
-export type NoArgsClassAnnotation = NoArgsClassAnnotationFactoryType & NoArgsClassAnnotationType
+Capabilities:
 
-type OptionalValueClassAnnotationFactoryType<T> = (value?: T) => ClassAnnotationBase
-export type OptionalValueClassAnnotation<T> = OptionalValueClassAnnotationFactoryType<T> & NoArgsClassAnnotationType
+Capability                              - Example                      - Implemented - Obs.
+-------------------------------------------------------------------------------------------------------------------
+Optional typed args without parenthesis -  @Annotation                 - No          - Too messy to implement (1)
+Optional typed args with parenthesis    -  @Annotation()               - Yes         -
+Optional typed args with value          -  @Annotation("value")        - Yes         -
+No-args annotation without parenthesis  -  @Annotation                 - No          - Too messy to implement (1)
+No-args annotation with parenthesis     -  @Annotation()               - No          -
+Custom type annotations                 -  @Annotation(f1=1, f2=false) - No          - To be implemented
 
-export const createValueClassAnnotation = <T>(): OptionalValueClassAnnotation<T> => {
-  const valueAnnotation = (value?: T) => (ctr: Function) => {
+Notes:
+(1): In order to make the factory function both a factory and de decorator itself (hybrid), it was necessary to
+change the runtime implementation to decide based in the numbers/type of the parameters if it's
+being used as a factory or a decorator
+ */
+
+
+// Type annotations
+
+type TypeAnnotationBase = <T extends { new(...args: any[]): {} }>(ctr: T) => void
+
+type NoArgsTypeAnnotationFactoryType = () => TypeAnnotationBase
+export type NoArgsTypeAnnotation = NoArgsTypeAnnotationFactoryType
+
+type OptionalValueTypeAnnotationFactoryType<T> = (value?: T) => TypeAnnotationBase
+export type OptionalValueTypeAnnotation<T> = OptionalValueTypeAnnotationFactoryType<T>
+
+export const createValueTypeAnnotation = <T>(): OptionalValueTypeAnnotation<T> => {
+  const valueAnnotation = (value?: T) => <T extends { new(...args: any[]): {} }>(ctr: T): void => {
   }
-  valueAnnotation.apply = valueAnnotation()
-  return valueAnnotation as OptionalValueClassAnnotation<T>
+  return valueAnnotation as OptionalValueTypeAnnotation<T>
 }
 
-export const createNoArgsClassAnnotation = (): NoArgsClassAnnotation => {
-  const valueAnnotation = () => (ctr: Function) => {
+export const createNoArgsTypeAnnotation = (): NoArgsTypeAnnotation => {
+  const valueAnnotation = () => <T extends { new(...args: any[]): {} }>(ctr: T): void => {
   }
-  valueAnnotation.apply = valueAnnotation()
-  return valueAnnotation as NoArgsClassAnnotation
+  return valueAnnotation as NoArgsTypeAnnotation
 }
 
 
@@ -29,76 +58,67 @@ export const createNoArgsClassAnnotation = (): NoArgsClassAnnotation => {
 
 type MethodAnnotationBase = (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => void
 
-type NoArgsMethodAnnotationType = MethodAnnotationBase
 type NoArgsMethodAnnotationFactoryType = () => MethodAnnotationBase
-export type NoArgsMethodAnnotation = NoArgsMethodAnnotationFactoryType & NoArgsMethodAnnotationType
+export type NoArgsMethodAnnotation = NoArgsMethodAnnotationFactoryType
 
 type OptionalValueMethodAnnotationFactoryType<T> = (value?: T) => MethodAnnotationBase
-export type OptionalValueMethodAnnotation<T> = OptionalValueMethodAnnotationFactoryType<T> & NoArgsMethodAnnotationType
+export type OptionalValueMethodAnnotation<T> = OptionalValueMethodAnnotationFactoryType<T>
 
 export const createValueMethodAnnotation = <T>(): OptionalValueMethodAnnotation<T> => {
   const valueAnnotation = (value?: T) => (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
   }
-  valueAnnotation.apply = valueAnnotation()
-  return valueAnnotation as OptionalValueClassAnnotation<T>
+  return valueAnnotation as OptionalValueTypeAnnotation<T>
 }
 
 export const createNoArgsMethodAnnotation = (): NoArgsMethodAnnotation => {
   const valueAnnotation = () => (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
   }
-  valueAnnotation.apply = valueAnnotation()
   return valueAnnotation as NoArgsMethodAnnotation
 }
 
 
-// Class Property annotations
+// Type Field annotations
 // Made for usage in properties inside a class
-type PropertyAnnotationBase = (target: Object, key: string | symbol) => void
+type FieldAnnotationBase = (target: Object, key: string | symbol) => void
 
-type NoArgsPropertyAnnotationType = PropertyAnnotationBase
-type NoArgsPropertyAnnotationFactoryType = () => PropertyAnnotationBase
-export type NoArgsPropertyAnnotation = NoArgsPropertyAnnotationFactoryType & NoArgsPropertyAnnotationType
+type NoArgsFieldAnnotationFactoryType = () => FieldAnnotationBase
+export type NoArgsFieldAnnotation = NoArgsFieldAnnotationFactoryType
 
-type OptionalValuePropertyAnnotationFactoryType<T> = (value?: T) => PropertyAnnotationBase
-export type OptionalValuePropertyAnnotation<T> = OptionalValuePropertyAnnotationFactoryType<T> & NoArgsPropertyAnnotationType
+type OptionalValueFieldAnnotationFactoryType<T> = (value?: T) => FieldAnnotationBase
+export type OptionalValueFieldAnnotation<T> = OptionalValueFieldAnnotationFactoryType<T>
 
-export const createValuePropertyAnnotation = <T>(): OptionalValuePropertyAnnotation<T> => {
+export const createValueFieldAnnotation = <T>(): OptionalValueFieldAnnotation<T> => {
   const valueAnnotation = (value?: T) => (target: Object, key: string | symbol) => {
   }
-  valueAnnotation.apply = valueAnnotation()
-  return valueAnnotation as OptionalValueClassAnnotation<T>
+  return valueAnnotation as OptionalValueTypeAnnotation<T>
 }
 
-export const createNoArgsPropertyAnnotation = (): NoArgsPropertyAnnotation => {
+export const createNoArgsFieldAnnotation = (): NoArgsFieldAnnotation => {
   const valueAnnotation = () => (target: Object, key: string | symbol) => {
   }
-  valueAnnotation.apply = valueAnnotation()
-  return valueAnnotation as NoArgsPropertyAnnotation
+  return valueAnnotation as NoArgsFieldAnnotation
 }
 
 
 
 // Method Parameter Annotations
 // Made for usage in parameters of a method
-type MethodParameterAnnotationBase = (target: Object, key: string | symbol, parameterIndex: number) => void
+type ParameterAnnotationBase = (target: Object, key: string | symbol, parameterIndex: number) => void
 
-type NoArgsMethodParameterAnnotationType = MethodParameterAnnotationBase
-type NoArgsMethodParameterAnnotationFactoryType = () => MethodParameterAnnotationBase
-export type NoArgsMethodParameterAnnotation = NoArgsMethodParameterAnnotationFactoryType & NoArgsMethodParameterAnnotationType
+type NoArgsParameterAnnotationFactoryType = () => ParameterAnnotationBase
+export type NoArgsParameterAnnotation = NoArgsParameterAnnotationFactoryType
 
-type OptionalValueMethodParameterAnnotationFactoryType<T> = (value?: T) => MethodParameterAnnotationBase
-export type OptionalValueMethodParameterAnnotation<T> = OptionalValueMethodParameterAnnotationFactoryType<T> & NoArgsMethodParameterAnnotationType
+type OptionalValueParameterAnnotationFactoryType<T> = (value?: T) => ParameterAnnotationBase
+export type OptionalValueParameterAnnotation<T> = OptionalValueParameterAnnotationFactoryType<T>
 
-export const createValueMethodParameterAnnotation = <T>(): OptionalValueMethodParameterAnnotation<T> => {
+export const createValueParameterAnnotation = <T>(): OptionalValueParameterAnnotation<T> => {
   const valueAnnotation = (value?: T) => (target: Object, key: string | symbol, parameterIndex: number) => {
   }
-  valueAnnotation.apply = valueAnnotation()
-  return valueAnnotation as OptionalValueClassAnnotation<T>
+  return valueAnnotation as OptionalValueParameterAnnotation<T>
 }
 
-export const createNoArgsMethodParameterAnnotation = (): NoArgsMethodParameterAnnotation => {
+export const createNoArgsParameterAnnotation = (): NoArgsParameterAnnotation => {
   const valueAnnotation = () => (target: Object, key: string | symbol, parameterIndex: number) => {
   }
-  valueAnnotation.apply = valueAnnotation()
-  return valueAnnotation as NoArgsMethodParameterAnnotation
+  return valueAnnotation as NoArgsParameterAnnotation
 }

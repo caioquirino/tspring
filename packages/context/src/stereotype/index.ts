@@ -2,14 +2,14 @@ import {
   AnnotationFactory
 } from "@tspring/annotation-utils"
 
-export type Component = AnnotationFactory.OptionalValueClassAnnotation<string>
-export const Component: Component = AnnotationFactory.createValueClassAnnotation<string>()
+export type Component = AnnotationFactory.OptionalValueTypeAnnotation<string>
+export const Component: Component = AnnotationFactory.createValueTypeAnnotation<string>()
 
-export type Controller = AnnotationFactory.OptionalValueClassAnnotation<string>
-export const Controller: Controller = AnnotationFactory.createValueClassAnnotation<string>()
+export type Controller = AnnotationFactory.OptionalValueTypeAnnotation<string>
+export const Controller: Controller = AnnotationFactory.createValueTypeAnnotation<string>()
 
-export type Repository = AnnotationFactory.OptionalValueClassAnnotation<string>
-export const Repository: Repository = AnnotationFactory.createValueClassAnnotation<string>()
+export type Repository = AnnotationFactory.OptionalValueTypeAnnotation<string>
+export const Repository: Repository = AnnotationFactory.createValueTypeAnnotation<string>()
 
-export type Service = AnnotationFactory.OptionalValueClassAnnotation<string>
-export const Service: Service = AnnotationFactory.createValueClassAnnotation<string>()
+export type Service = AnnotationFactory.OptionalValueTypeAnnotation<string>
+export const Service: Service = AnnotationFactory.createValueTypeAnnotation<string>()
