@@ -4,18 +4,18 @@ type Greetings = {
   name: string
 }
 
-@RestController
+@RestController()
 export class MyController {
 
   @RequestMapping("/")
-  public getGreetings(@RequestParam name: string): Greetings {
+  public getGreetings(@RequestParam() name: string): Greetings {
     return  {
       name: "aeae"
     }
   }
 
   @RequestMapping("/user/{userId}")
-  public getUserById(@PathParam userId: string): Greetings {
+  public getUserById(@PathParam() userId: string): Greetings {
     return  {
       name: "aeae"
     }

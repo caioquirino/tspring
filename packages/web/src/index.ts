@@ -1,14 +1,14 @@
 import {
   AnnotationFactory
 } from "@tspring/annotation-utils"
-export type RestController = AnnotationFactory.OptionalValueTypeAnnotation<string>
-export const RestController: RestController = AnnotationFactory.createValueTypeAnnotation<string>()
+export type RestController = AnnotationFactory.TypeAnnotation<string | void>
+export const RestController: RestController = AnnotationFactory.createTypeAnnotation<string | void>()
 
-export type RequestMapping = AnnotationFactory.OptionalValueMethodAnnotation<string>
-export const RequestMapping: RequestMapping = AnnotationFactory.createValueMethodAnnotation<string>()
+export type RequestMapping = AnnotationFactory.MethodAnnotation<string>
+export const RequestMapping: RequestMapping = AnnotationFactory.createMethodAnnotation<string>()
 
-export type RequestParam = AnnotationFactory.OptionalValueParameterAnnotation<string>
-export const RequestParam: RequestParam = AnnotationFactory.createValueParameterAnnotation<string>()
+export type RequestParam = AnnotationFactory.ParameterAnnotation<string | void>
+export const RequestParam: RequestParam = AnnotationFactory.createParameterAnnotation<string | void>()
 
-export type PathParam = AnnotationFactory.OptionalValueParameterAnnotation<string>
-export const PathParam: PathParam = AnnotationFactory.createValueParameterAnnotation<string>()
+export type PathParam = AnnotationFactory.ParameterAnnotation<string | void>
+export const PathParam: PathParam = AnnotationFactory.createParameterAnnotation<string | void>()

@@ -2,8 +2,8 @@ import {
   AnnotationFactory
 } from "@tspring/annotation-utils"
 
-export type Configuration = AnnotationFactory.NoArgsTypeAnnotation
-export const Configuration: Configuration = AnnotationFactory.createNoArgsTypeAnnotation()
+export type Configuration = AnnotationFactory.TypeAnnotation<void>
+export const Configuration: Configuration = AnnotationFactory.createTypeAnnotation<void>()
 
-export type Bean = AnnotationFactory.OptionalValueMethodAnnotation<string>
-export const Bean: Bean = AnnotationFactory.createValueMethodAnnotation<string>()
+export type Bean = AnnotationFactory.MethodAnnotation<string | void>
+export const Bean: Bean = AnnotationFactory.createMethodAnnotation<string | void>()

@@ -6,7 +6,7 @@ interface MyRepository {
 }
 
 @Repository("mysqlDb")
-@Autowired
+@Autowired()
 class MyMysqlRepository implements MyRepository {
   constructor() {
 
@@ -14,15 +14,15 @@ class MyMysqlRepository implements MyRepository {
 }
 
 @Repository("MaeJoanaDb")
-@Autowired
+@Autowired()
 class MyMaeJoanaRepository implements MyRepository {
   constructor() {
 
   }
 }
 
-@Service
-@Autowired
+@Service()
+@Autowired()
 class MyService {
   @Qualifier("MaeJoanaDb")
   private repo: MyRepository

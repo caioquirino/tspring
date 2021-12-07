@@ -1,14 +1,14 @@
 import {Repository} from "../src/stereotype"
 import {Bean, Configuration} from "../src/config"
 
-@Repository
+@Repository()
 class MyRepository {
   constructor() {}
 }
 
-@Configuration
+@Configuration()
 class MyConfig {
-  @Bean
+  @Bean()
   public repo(): MyRepository {
     return new MyRepository()
   }
