@@ -1,20 +1,13 @@
 import { AnnotationFactory } from "../src"
 
-export type TestTypeAnnotation = AnnotationFactory.TypeAnnotation<[value: string | void]>
-export const TestTypeAnnotation: TestTypeAnnotation = AnnotationFactory.createTypeAnnotation<[value: string | void]>()
+export const TestTypeAnnotation = AnnotationFactory.createTypeAnnotation<[value: string | void]>()
+export const TestMethodAnnotation = AnnotationFactory.createMethodAnnotation<[value: string | void]>()
+export const TestFieldAnnotation = AnnotationFactory.createFieldAnnotation<[value: string | void]>()
+export const TestParameterAnnotation = AnnotationFactory.createParameterAnnotation<[value: string | void]>()
 
-export type TestMethodAnnotation = AnnotationFactory.MethodAnnotation<[value: string | void]>
-export const TestMethodAnnotation: TestMethodAnnotation = AnnotationFactory.createMethodAnnotation<[value: string | void]>()
+export const TupleTestTypeAnnotation = AnnotationFactory.createTypeAnnotation<[name: string, enabled: boolean, index: number]>()
 
-export type TestFieldAnnotation = AnnotationFactory.FieldAnnotation<[value: string | void]>
-export const TestFieldAnnotation: TestFieldAnnotation = AnnotationFactory.createFieldAnnotation<[value: string | void]>()
-
-export type TestParameterAnnotation = AnnotationFactory.ParameterAnnotation<[value: string | void]>
-export const TestParameterAnnotation: TestParameterAnnotation = AnnotationFactory.createParameterAnnotation<[value: string | void]>()
-
-
-export type TupleTestTypeAnnotation = AnnotationFactory.TypeAnnotation<[name: string, enabled: boolean, index: number]>
-export const TupleTestTypeAnnotation: TupleTestTypeAnnotation = AnnotationFactory.createTypeAnnotation<[name: string, enabled: boolean, index: number]>()
+//TODO: Experiment exchanging tuples with objects to see if the IDE documentation looks better
 
 type TestObject = {
   testField: string
